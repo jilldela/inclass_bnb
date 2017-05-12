@@ -1,17 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReduxThunk from 'redux-thunk';
-import * as APIUtil from './util/session_api_util';
-import * as Actions from './actions/session_actions';
 import configureStore from './store/store';
-
-window.signup = Actions.requestSignUp;
-window.login = Actions.requestLogIn;
-window.logout = Actions.requestLogOut;
+import Root from './components/root';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const store = configureStore();
+
+  let store;
+
+  if(window.currentUser) {
+    const preloadedState = {session: {currentUser: window.currentUser, errors: []}};
+    store = configureStore(preloadedState);
+    delete window.currentUser;
+  } else {
+    store = configureStore();
+  }
+
+  // TODO: for testing only!
   window.store = store;
+
   const root = document.getElementById('root');
-  ReactDOM.render(<h1>Howdy!</h1>, root);
+  ReactDOM.render(<Root store={ store } />, root);
 });
+
+import * as Actions from './actions/session_actions';
+
+window.login = Actions.requestLogIn;
