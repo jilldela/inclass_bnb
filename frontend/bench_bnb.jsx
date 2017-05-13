@@ -25,3 +25,5 @@ document.addEventListener('DOMContentLoaded', () => {
 import * as Actions from './actions/session_actions';
 
 window.login = Actions.requestLogIn;
+
+git filter-branch -f --env-filter "GIT_AUTHOR_NAME='Jill de los Angeles'; GIT_AUTHOR_EMAIL='jilldelosangeles@gmail.com'; GIT_COMMITTER_NAME='Jill de los Angeles'; GIT_COMMITTER_EMAIL='jilldelosangeles@gmail.com';" HEAD
